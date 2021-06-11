@@ -1,6 +1,9 @@
 package az.code.unisubapp.services;
 
 import az.code.unisubapp.models.AppUser;
+import az.code.unisubapp.models.Card;
+
+import java.util.List;
 
 public interface AppUserService {
 
@@ -11,5 +14,15 @@ public interface AppUserService {
     AppUser newUser(AppUser appUser);
 
     AppUser deleteUser(String username);
+
+    Card getCard(Long id);
+
+    List<Card> getCards(String username);
+
+    Card newCard(String username, Card card);
+
+    Card updateCard(Card card);
+
+    Card deleteCard(Card card);
 
 }

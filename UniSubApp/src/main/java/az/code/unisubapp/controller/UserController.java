@@ -2,10 +2,13 @@ package az.code.unisubapp.controller;
 
 import az.code.unisubapp.exceptions.UsernameNotFound;
 import az.code.unisubapp.models.AppUser;
+import az.code.unisubapp.models.Card;
 import az.code.unisubapp.services.AppUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -41,4 +44,18 @@ public class UserController {
         return new ResponseEntity<>(appUserService.updateUser(appUser), HttpStatus.OK);
     }
 
+    @GetMapping("/{username}/cards")
+    public ResponseEntity<List<Card>> getCards(@PathVariable String username) {
+        return new ResponseEntity<>(appUserService.getCards(username), HttpStatus.OK);
+    }
+
+    @GetMapping("/{username}/cards/{id}")
+    public ResponseEntity<Card> getCardById(@PathVariable String username, @PathVariable long id) {
+        return new ResponseEntity<>(appUserService.getCard(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/{username}/cards")
+    public ResponseEntity<Card> newCard(@PathVariable String username, @RequestBody Card card) {
+        return new ResponseEntity<>(appUserService.newCard(username, card), HttpStatus.OK);
+    }
 }

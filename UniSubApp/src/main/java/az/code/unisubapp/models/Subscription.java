@@ -1,7 +1,5 @@
 package az.code.unisubapp.models;
 
-import az.code.unisubapp.models.enums.Plan;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +22,7 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String item;
-    private Plan plan;
+    private String plan;
     private BigDecimal price;
     @ManyToOne(targetEntity = Card.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Card card;
