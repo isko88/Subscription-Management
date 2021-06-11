@@ -4,6 +4,7 @@ import az.code.unisubapp.exceptions.UsernameNotFound;
 import az.code.unisubapp.models.AppUser;
 import az.code.unisubapp.services.AppUserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class UserController {
         return new ResponseEntity<>(appUser, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<AppUser> saveAppUser(@RequestBody AppUser appUser) {
         return new ResponseEntity<>(appUserService.newUser(appUser), HttpStatus.OK);
     }

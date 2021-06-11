@@ -22,21 +22,27 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(unique = true, name = "username", nullable = false)
     @NaturalId
     private String userName;
+
     @Column(name = "firstname")
     private String firstName;
+
     @Column(name = "lastname")
     private String lastName;
+
     @Column(unique = true, nullable = false)
     private String email;
+
     @Column(unique = true)
     private String phone;
+
     @JsonManagedReference
     @OneToMany(targetEntity = Card.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Card> cards = new ArrayList<>();
+
     @OneToMany(targetEntity = Subscription.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
     List<Subscription> subs = new ArrayList<>();
 }

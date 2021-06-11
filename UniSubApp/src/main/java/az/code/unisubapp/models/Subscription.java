@@ -25,7 +25,6 @@ public class Subscription {
     private String item;
     private Plan plan;
     private BigDecimal price;
-    @JsonManagedReference
     @ManyToOne(targetEntity = Card.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Card card;
     private LocalDate subDate;
