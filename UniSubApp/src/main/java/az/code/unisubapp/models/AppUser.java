@@ -37,5 +37,4 @@ public class AppUser {
     @OneToMany(targetEntity = Subscription.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     List<Subscription> subs = new ArrayList<>();
-
 }
