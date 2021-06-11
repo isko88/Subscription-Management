@@ -1,6 +1,7 @@
 package az.code.unisubapp.models;
 
 import az.code.unisubapp.models.enums.Plan;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +25,8 @@ public class Subscription {
     private String item;
     private Plan plan;
     private BigDecimal price;
+    @JsonManagedReference
+    @ManyToOne(targetEntity = Card.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Card card;
     private LocalDate subDate;
     private URL website;
