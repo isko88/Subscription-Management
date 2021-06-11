@@ -6,12 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.description.method.ParameterList;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -48,4 +45,6 @@ public class Card {
     public int hashCode() {
         return Objects.hash(id, number);
     }
+
+
 }

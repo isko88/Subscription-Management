@@ -25,12 +25,10 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, name = "username", nullable = false)
+    @Column(unique = true, nullable = false)
     @NaturalId
     private String username;
-    @Column(name = "firstname")
     private String firstname;
-    @Column(name = "lastname")
     private String lastname;
 
     @Column(unique = true, nullable = false)
@@ -39,18 +37,18 @@ public class AppUser {
     @Column(unique = true)
     private String phone;
 
-    @Column(name = "is_inactive")
-    private boolean isInactive;
-
-    @Column(name = "remove_date")
-    private LocalDate removeDate;
-
     @JsonManagedReference
     @OneToMany(targetEntity = Card.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Card> cards = new ArrayList<>();
 
     @OneToMany(targetEntity = Subscription.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Subscription> subs = new ArrayList<>();
+
+    @Column(name = "is_inactive")
+    private boolean isInactive;
+
+    @Column(name = "remove_date")
+    private LocalDate removeDate;
 
     @Override
     public boolean equals(Object o) {
@@ -59,7 +57,6 @@ public class AppUser {
         AppUser appUser = (AppUser) o;
         return id.equals(appUser.id) && username.equals(appUser.username) && email.equals(appUser.email);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id, username, email);
