@@ -23,15 +23,11 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, name = "username", nullable = false)
+    @Column(unique = true, nullable = false)
     @NaturalId
-    private String userName;
-
-    @Column(name = "firstname")
-    private String firstName;
-
-    @Column(name = "lastname")
-    private String lastName;
+    private String username;
+    private String firstname;
+    private String lastname;
 
     @Column(unique = true, nullable = false)
     private String email;

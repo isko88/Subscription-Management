@@ -15,7 +15,7 @@ public class AppUserServiceImpl implements AppUserService {
 
     public AppUser getUser(String username) {
         try{
-            return appUserRepository.getAppUserByUserName(username);
+            return appUserRepository.getAppUserByUsername(username);
         }
         catch (Exception e){
             e.printStackTrace();

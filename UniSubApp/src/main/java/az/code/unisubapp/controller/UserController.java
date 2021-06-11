@@ -4,7 +4,6 @@ import az.code.unisubapp.exceptions.UsernameNotFound;
 import az.code.unisubapp.models.AppUser;
 import az.code.unisubapp.services.AppUserService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,4 +30,15 @@ public class UserController {
     public ResponseEntity<AppUser> saveAppUser(@RequestBody AppUser appUser) {
         return new ResponseEntity<>(appUserService.newUser(appUser), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<AppUser> deleteAppUser(@PathVariable String username) {
+        return new ResponseEntity<>(appUserService.deleteUser(username), HttpStatus.OK);
+    }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<AppUser> updateAppUser(@RequestBody AppUser appUser, @PathVariable String username) {
+        return new ResponseEntity<>(appUserService.updateUser(appUser), HttpStatus.OK);
+    }
+
 }
