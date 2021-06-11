@@ -1,6 +1,7 @@
 package az.code.unisubapp.models;
 
 import az.code.unisubapp.models.enums.CardType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +24,9 @@ public class Card {
     private String bank_name;
     private LocalDate expiryDate;
     private CardType type;
+    @ManyToOne
+    @JoinColumn(name = "appUser_id")
+    @JsonBackReference
+    private AppUser appUser;
+
 }
