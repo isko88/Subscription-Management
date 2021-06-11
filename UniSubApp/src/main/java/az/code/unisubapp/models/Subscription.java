@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -27,8 +28,24 @@ public class Subscription {
     private BigDecimal price;
     @ManyToOne(targetEntity = Card.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Card card;
+    @Column(name = "sub_date")
     private LocalDate subDate;
     private URL website;
+    @Column(name = "is_active")
     private boolean isActive;
+    @Column(name = "deactivated_date")
     private LocalDate deactivatedDate;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subscription that = (Subscription) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
