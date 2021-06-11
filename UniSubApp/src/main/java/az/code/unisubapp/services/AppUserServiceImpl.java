@@ -1,21 +1,33 @@
 package az.code.unisubapp.services;
 
 import az.code.unisubapp.models.AppUser;
+import az.code.unisubapp.repository.AppUserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AppUserServiceImpl implements AppUserService {
 
-    @Override
-    public AppUser updateUser(AppUser appUser) {
-        return null;
+    AppUserRepository appUserRepository;
+
+    public AppUserServiceImpl(AppUserRepository appUserRepository) {
+        this.appUserRepository = appUserRepository;
     }
 
-    @Override
-    public AppUser newUser(AppUser appUser) {
-        return null;
+    public AppUser getUser(String username) {
+        return appUserRepository.getAppUserByUserName(username);
     }
 
-    @Override
+    public AppUser updateUser(AppUser user) {
+        return appUserRepository.save(user);
+    }
+
+    public AppUser newUser(AppUser user) {
+        return appUserRepository.save(user);
+    }
+
     public AppUser deleteUser(String username) {
-        return null;
+        AppUser user = getUser(username);
+        appUserRepository.delete(user);
+        return user;
     }
 }
