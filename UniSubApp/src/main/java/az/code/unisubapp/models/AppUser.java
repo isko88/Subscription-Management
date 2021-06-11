@@ -1,26 +1,27 @@
 package az.code.unisubapp.models;
 
-import az.code.unisubapp.models.enums.CardType;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "cards")
-public class Card {
+@Table(name = "users")
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String number;
-    private String bank_name;
-    private LocalDate expiryDate;
-    private CardType type;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
 }
