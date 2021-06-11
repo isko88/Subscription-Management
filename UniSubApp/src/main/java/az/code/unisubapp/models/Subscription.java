@@ -24,7 +24,12 @@ public class Subscription {
     private String item;
     private Plan plan;
     private BigDecimal price;
-    private Card card;
+    @ManyToOne
+    @JoinColumn(name="appUser_id")
+    private AppUser appUser;
+//    @ManyToOne
+//    @JoinColumn(name="card")
+//    private Card card;
     private LocalDate subDate;
     private URL website;
     private boolean isActive;

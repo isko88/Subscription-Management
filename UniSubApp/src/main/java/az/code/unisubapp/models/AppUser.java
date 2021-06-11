@@ -34,5 +34,6 @@ public class AppUser {
     @JsonManagedReference
     @OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Card> cards = new ArrayList<>();
-
+    @OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Subscription> subscriptions = new ArrayList<>();
 }
