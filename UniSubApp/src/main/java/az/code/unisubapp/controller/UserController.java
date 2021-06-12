@@ -1,5 +1,6 @@
 package az.code.unisubapp.controller;
 
+import az.code.unisubapp.dto.CardDto;
 import az.code.unisubapp.exceptions.UsernameNotFound;
 import az.code.unisubapp.models.AppUser;
 import az.code.unisubapp.models.Card;
@@ -50,7 +51,7 @@ public class UserController {
     }
 
     @GetMapping("/{username}/cards/{id}")
-    public ResponseEntity<Card> getCardById(@PathVariable String username, @PathVariable long id) {
+    public ResponseEntity<CardDto> getCardById(@PathVariable String username, @PathVariable long id) {
         return new ResponseEntity<>(appUserService.getCard(id), HttpStatus.OK);
     }
 
