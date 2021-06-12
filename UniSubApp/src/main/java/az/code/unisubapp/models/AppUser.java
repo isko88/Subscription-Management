@@ -1,6 +1,7 @@
 package az.code.unisubapp.models;
 
 
+import az.code.unisubapp.dto.AppUserDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +41,7 @@ public class AppUser {
     Set<Card> cards = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     List<Subscription> subs = new ArrayList<>();
 
     @Column(name = "is_inactive")
@@ -47,6 +49,15 @@ public class AppUser {
 
     @Column(name = "remove_date")
     private LocalDate removeDate;
+
+    public AppUser(AppUserDto userDto){
+        this.id = userDto.getId();
+        this.username = userDto.getUsername();
+        this.firstname = userDto.getFirstname();
+        this.lastname = userDto.getLastname();
+        this.email = userDto.getEmail();
+        this.phoneNumber = userDto.getPhoneNumber();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -66,6 +77,10 @@ public class AppUser {
             return true;
         }
         return false;
+    }
+
+    public boolean addSub(Subscription sub){
+        return this.subs.add(sub);
     }
 
     public void updateUser(AppUser u){

@@ -46,13 +46,13 @@ public class UserController {
     }
 
     @GetMapping("/{username}/cards")
-    public ResponseEntity<List<Card>> getCards(@PathVariable String username) {
+    public ResponseEntity<List<?>> getCards(@PathVariable String username) {
         return new ResponseEntity<>(appUserService.getCards(username), HttpStatus.OK);
     }
 
     @GetMapping("/{username}/cards/{id}")
-    public ResponseEntity<CardDto> getCardById(@PathVariable String username, @PathVariable long id) {
-        return new ResponseEntity<>(appUserService.getCard(id), HttpStatus.OK);
+    public ResponseEntity<CardDto> getCardById(@PathVariable String username, @PathVariable Long id) {
+        return new ResponseEntity<>(appUserService.getCardDto(id), HttpStatus.OK);
     }
 
     @PostMapping("/{username}/cards")
