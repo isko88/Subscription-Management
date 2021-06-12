@@ -1,5 +1,6 @@
 package az.code.unisubapp.services;
 
+import az.code.unisubapp.dto.CardDto;
 import az.code.unisubapp.exceptions.AlreadyExists;
 import az.code.unisubapp.models.AppUser;
 import az.code.unisubapp.models.Card;
@@ -58,8 +59,12 @@ public class AppUserServiceImpl implements AppUserService {
         return user;
     }
 
-    public Card getCard(Long id) {
-        return cardRepository.getById(id);
+    public CardDto getCard(Long id) {
+        System.out.println("BBBBB");
+        Card card = cardRepository.getById(id);
+        System.out.println(card.getBankName());
+        System.out.println("AAaaaaaaaaaaaaa");
+        return new CardDto(card);
     }
 
     public List<Card> getCards(String username) {

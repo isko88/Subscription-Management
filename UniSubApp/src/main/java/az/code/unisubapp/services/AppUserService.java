@@ -1,5 +1,6 @@
 package az.code.unisubapp.services;
 
+import az.code.unisubapp.dto.CardDto;
 import az.code.unisubapp.models.AppUser;
 import az.code.unisubapp.models.Card;
 import az.code.unisubapp.models.Subscription;
@@ -16,7 +17,7 @@ public interface AppUserService {
 
     AppUser deleteUser(String username);
 
-    Card getCard(Long id);
+    CardDto getCard(Long id);
 
     List<Card> getCards(String username);
 
