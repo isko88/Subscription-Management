@@ -45,7 +45,4 @@ public interface AppUserService {
 
     SubscriptionDto deleteSubscriptionDto(Long id);
 
-    void sendMail();
-
-
 }

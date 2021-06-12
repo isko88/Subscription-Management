@@ -15,8 +15,6 @@ import java.util.List;
 @RequestMapping("/api")
 public class UserController {
 
-
-    //    MailSender mailSender;
     AppUserService appUserService;
 
     public UserController(AppUserService appUserService) {
@@ -25,7 +23,6 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<AppUserDto> getAppUserByUsername(@PathVariable String username) {
-//        mailSender.sendNotificationEmail();
         AppUserDto appUser = appUserService.getUserDto(username);
         if (appUser == null) {
             throw new UsernameNotFound();
@@ -102,6 +99,5 @@ public class UserController {
     public ResponseEntity<SubscriptionDto> updateCard(@PathVariable String username, @RequestBody SubscriptionDto subscriptionDto) {
         return new ResponseEntity<>(appUserService.updateSubscriptionDto(subscriptionDto), HttpStatus.OK);
     }
-
 
 }

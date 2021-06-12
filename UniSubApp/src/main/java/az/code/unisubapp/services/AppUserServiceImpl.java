@@ -184,10 +184,4 @@ public class AppUserServiceImpl implements AppUserService {
         return new SubscriptionDto(sub);
     }
 
-    @Override
-    public void sendMail() {
-
-
-
-    }
 }
