@@ -2,6 +2,7 @@ package az.code.unisubapp.services;
 
 import az.code.unisubapp.models.AppUser;
 import az.code.unisubapp.models.Card;
+import az.code.unisubapp.models.Subscription;
 
 import java.util.List;
 

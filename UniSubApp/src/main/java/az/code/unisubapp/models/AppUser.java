@@ -10,9 +10,7 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Data
 @Builder(toBuilder = true)
@@ -34,14 +32,14 @@ public class AppUser {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(unique = true)
-    private String phone;
+    @Column(name = "phone_number", unique = true)
+    private String phoneNumber;
 
     @JsonManagedReference
-    @OneToMany(targetEntity = Card.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Card> cards = new ArrayList<>();
+    @OneToMany(mappedBy = "appUser" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    Set<Card> cards = new HashSet<>();
 
-    @OneToMany(targetEntity = Subscription.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Subscription> subs = new ArrayList<>();
 
     @Column(name = "is_inactive")
@@ -55,10 +53,25 @@ public class AppUser {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AppUser appUser = (AppUser) o;
-        return id.equals(appUser.id) && username.equals(appUser.username) && email.equals(appUser.email);
+        return username.equals(appUser.username) && email.equals(appUser.email);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, email);
+        return Objects.hash(username, email);
+    }
+
+    public boolean addCard(Card card){
+        if(this.cards.add(card)){
+            card.setAppUser(this);
+            return true;
+        }
+        return false;
+    }
+
+    public void updateUser(AppUser u){
+        this.setFirstname(u.getFirstname() != null ? u.getFirstname() : this.getFirstname());
+        this.setLastname(u.getLastname() != null ? u.getLastname() : this.getLastname());
+        this.setEmail(u.getEmail() != null ? u.getEmail() : this.getEmail());
+        this.setPhoneNumber(u.getPhoneNumber() != null ? u.getPhoneNumber() : this.getPhoneNumber());
     }
 }
