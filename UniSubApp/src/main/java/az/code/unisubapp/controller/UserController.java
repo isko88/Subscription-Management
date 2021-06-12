@@ -1,8 +1,6 @@
 package az.code.unisubapp.controller;
 
-import az.code.unisubapp.dto.AppUserDto;
-import az.code.unisubapp.dto.CardDto;
-import az.code.unisubapp.dto.SubscriptionDto;
+import az.code.unisubapp.dto.*;
 import az.code.unisubapp.exceptions.UsernameNotFound;
 import az.code.unisubapp.services.AppUserService;
 import org.springframework.http.HttpStatus;
@@ -21,20 +19,15 @@ public class UserController {
         this.appUserService = appUserService;
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<AppUserDto> getAppUserByUsername(@PathVariable String username) {
-        System.out.println(username);
-        AppUserDto appUser = appUserService.getUserDto(username);
-        if (appUser == null) {
-            throw new UsernameNotFound();
-        }
-        return new ResponseEntity<>(appUser, HttpStatus.OK);
+    @PostMapping("/login")
+    public ResponseEntity<AppUserDto> loginUser(@RequestBody LoginDto loginInfo) {
+        AppUserDto user = appUserService.login(loginInfo);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AppUserDto> saveAppUser(@RequestBody AppUserDto appUserDto) {
-        System.out.println(appUserDto);
-        return new ResponseEntity<>(appUserService.newUserDto(appUserDto), HttpStatus.OK);
+    public ResponseEntity<AppUserDto> registerNewUser(@RequestBody UserRegisterDto newUser) {
+        return new ResponseEntity<>(appUserService.newUserDto(newUser), HttpStatus.OK);
     }
 
     @DeleteMapping("/{username}")
@@ -66,7 +59,7 @@ public class UserController {
     public ResponseEntity<CardDto> updateCard(@PathVariable String username,
                                               @PathVariable long id,
                                               @RequestBody CardDto cardDto) {
-        return new ResponseEntity<>(appUserService.updateCardDto(cardDto), HttpStatus.OK);
+        return new ResponseEntity<>(appUserService.updateCardDto(id, cardDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{username}/cards/{id}")
@@ -87,18 +80,22 @@ public class UserController {
 
 
     @PostMapping("/{username}/subs")
-    public ResponseEntity<SubscriptionDto> newSubs(@PathVariable String username, @RequestBody SubscriptionDto subscriptionDto) {
+    public ResponseEntity<SubscriptionDto> newSubs(@PathVariable String username,
+                                                   @RequestBody SubscriptionDto subscriptionDto) {
         return new ResponseEntity<>(appUserService.newSubscriptionDto(subscriptionDto, username), HttpStatus.OK);
     }
 
     @DeleteMapping("/{username}/subs/{id}")
-    public ResponseEntity<SubscriptionDto> deleteSubsById(@PathVariable String username, @PathVariable long id) {
+    public ResponseEntity<SubscriptionDto> deleteSubsById(@PathVariable String username,
+                                                          @PathVariable long id) {
         return new ResponseEntity<>(appUserService.deleteSubscriptionDto(id), HttpStatus.OK);
     }
 
     @PutMapping("/{username}/subs/{id}")
-    public ResponseEntity<SubscriptionDto> updateCard(@PathVariable String username, @RequestBody SubscriptionDto subscriptionDto) {
-        return new ResponseEntity<>(appUserService.updateSubscriptionDto(subscriptionDto), HttpStatus.OK);
+    public ResponseEntity<SubscriptionDto> updateSub(@PathVariable String username,
+                                                      @PathVariable long id,
+                                                      @RequestBody SubscriptionDto subscriptionDto) {
+        return new ResponseEntity<>(appUserService.updateSubscriptionDto(id, subscriptionDto), HttpStatus.OK);
     }
 
 }

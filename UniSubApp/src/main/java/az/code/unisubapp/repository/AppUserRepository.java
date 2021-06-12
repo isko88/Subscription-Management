@@ -12,4 +12,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     @Query("select a from AppUser a where a.isInactive=true")
     List<AppUser> getAppUserByInactive();
 
+    AppUser getAppUserByUsernameAndPasswordEquals(String username, String password);
+
 }

@@ -21,6 +21,7 @@ public class AppUserDto {
     private String lastname;
     private String email;
     private String phoneNumber;
+    private boolean isInactive;
 
     Set<CardDto> cards = new HashSet<>();
     List<SubscriptionDto> subs = new ArrayList<>();
@@ -32,6 +33,7 @@ public class AppUserDto {
         this.lastname = user.getLastname();
         this.email = user.getEmail();
         this.phoneNumber = user.getPhoneNumber();
+        this.isInactive = user.isInactive();
 
         user.getCards().stream().map(CardDto::new).forEach(this.cards::add);
         user.getSubs().stream().map(SubscriptionDto::new).forEach(s -> this.subs.add(s));

@@ -1,8 +1,6 @@
 package az.code.unisubapp.services;
 
-import az.code.unisubapp.dto.AppUserDto;
-import az.code.unisubapp.dto.CardDto;
-import az.code.unisubapp.dto.SubscriptionDto;
+import az.code.unisubapp.dto.*;
 import az.code.unisubapp.exceptions.AlreadyExists;
 import az.code.unisubapp.exceptions.UsernameNotFound;
 import az.code.unisubapp.models.AppUser;
@@ -47,6 +45,15 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
+    public AppUserDto login(LoginDto login){
+        AppUser user = appUserRepository.
+                getAppUserByUsernameAndPasswordEquals(login.getUsername(), login.getPassword());
+        if(user == null){
+            throw new UsernameNotFound();
+        }
+        return new AppUserDto(user);
+    }
+    @Override
     public AppUser getUser(String username) {
         try {
             AppUser user = appUserRepository.getAppUserByUsername(username);
@@ -67,7 +74,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUserDto newUserDto(AppUserDto user) {
+    public AppUserDto newUserDto(UserRegisterDto user) {
         try {
             AppUser newUser = appUserRepository.save(new AppUser(user));
             return new AppUserDto(newUser);
@@ -120,8 +127,8 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public CardDto updateCardDto(CardDto cardDto) {
-        Card c = cardRepository.getById(cardDto.getId());
+    public CardDto updateCardDto(long id, CardDto cardDto) {
+        Card c = cardRepository.getById(id);
         c.update(new Card(cardDto));
         cardRepository.save(c);
         return new CardDto(c);
@@ -156,12 +163,12 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public SubscriptionDto updateSubscriptionDto(SubscriptionDto subscriptionDto) {
+    public SubscriptionDto updateSubscriptionDto(long id, SubscriptionDto subscriptionDto) {
         Subscription subUpdate = new Subscription(subscriptionDto);
-        Subscription sub = subscriptionRepository.getById(subscriptionDto.getId());
+        Subscription sub = subscriptionRepository.getById(id);
         sub.update(subUpdate);
         subscriptionRepository.save(sub);
-        return new SubscriptionDto(subscriptionRepository.getById(sub.getId()));
+        return new SubscriptionDto(subscriptionRepository.getById(id));
     }
 
     @Override
@@ -170,7 +177,7 @@ public class AppUserServiceImpl implements AppUserService {
         Subscription newSub = new Subscription(subscriptionDto);
         String plan = newSub.getPlan();
         LocalDate ld = newSub.getSubDate();
-        switch (plan){
+        switch (plan.toLowerCase()){
             case("annually"):{
                 newSub.setRenewDate(ld.plusYears(1));
                 break;
