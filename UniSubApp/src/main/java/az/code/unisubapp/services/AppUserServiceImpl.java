@@ -161,7 +161,7 @@ public class AppUserServiceImpl implements AppUserService {
         Subscription sub = subscriptionRepository.getById(subscriptionDto.getId());
         sub.update(subUpdate);
         subscriptionRepository.save(sub);
-        return new SubscriptionDto(sub);
+        return new SubscriptionDto(subscriptionRepository.getById(sub.getId()));
     }
 
     @Override
@@ -172,7 +172,7 @@ public class AppUserServiceImpl implements AppUserService {
         newSub.setCard(card);
         appUser.addSub(newSub);
         appUserRepository.save(appUser);
-        return new SubscriptionDto(newSub);
+        return new SubscriptionDto(subscriptionRepository.getById(newSub.getId()));
     }
 
     @Override

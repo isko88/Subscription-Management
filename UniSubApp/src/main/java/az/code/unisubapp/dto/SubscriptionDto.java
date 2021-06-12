@@ -26,6 +26,7 @@ public class SubscriptionDto {
     private Long cardId;
     private LocalDate subDate;
     private URL website;
+    private boolean isDeactivated;
 
     public SubscriptionDto(Subscription sub) {
         this.id = sub.getId();
@@ -35,5 +36,6 @@ public class SubscriptionDto {
         this.cardId = sub.getCard().getId();
         this.subDate = sub.getSubDate();
         this.website = sub.getWebsite();
+        this.isDeactivated = sub.isDeactivated();
     }
 }
