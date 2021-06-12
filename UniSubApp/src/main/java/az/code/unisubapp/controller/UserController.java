@@ -3,7 +3,6 @@ package az.code.unisubapp.controller;
 import az.code.unisubapp.dto.AppUserDto;
 import az.code.unisubapp.dto.CardDto;
 import az.code.unisubapp.exceptions.UsernameNotFound;
-import az.code.unisubapp.models.AppUser;
 import az.code.unisubapp.services.AppUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,5 +65,11 @@ public class UserController {
         return new ResponseEntity<>(appUserService.deleteCardDto(id), HttpStatus.OK);
     }
 
+    @PutMapping("/{username}/cards/{id}")
+    public ResponseEntity<CardDto> updateCard(@PathVariable String username, @RequestBody CardDto cardDto) {
+        return new ResponseEntity<>(appUserService.updateCardDto(cardDto), HttpStatus.OK);
+    }
+
+    
 
 }
