@@ -2,7 +2,9 @@ package az.code.unisubapp.dto;
 
 import az.code.unisubapp.models.AppUser;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,6 +12,8 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AppUserDto {
     private long id;
     private String username;
@@ -18,7 +22,6 @@ public class AppUserDto {
     private String email;
     private String phoneNumber;
 
-    @JsonManagedReference
     Set<CardDto> cards = new HashSet<>();
     List<SubscriptionDto> subs = new ArrayList<>();
 

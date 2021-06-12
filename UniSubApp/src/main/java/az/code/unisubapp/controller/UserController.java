@@ -1,5 +1,6 @@
 package az.code.unisubapp.controller;
 
+import az.code.unisubapp.dto.AppUserDto;
 import az.code.unisubapp.dto.CardDto;
 import az.code.unisubapp.exceptions.UsernameNotFound;
 import az.code.unisubapp.models.AppUser;
@@ -31,18 +32,19 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<AppUser> saveAppUser(@RequestBody AppUser appUser) {
-        return new ResponseEntity<>(appUserService.newUser(appUser), HttpStatus.OK);
+    public ResponseEntity<AppUserDto> saveAppUser(@RequestBody AppUserDto appUserDto) {
+        System.out.println(appUserDto);
+        return new ResponseEntity<>(appUserService.newUserDto(appUserDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{username}")
-    public ResponseEntity<AppUser> deleteAppUser(@PathVariable String username) {
-        return new ResponseEntity<>(appUserService.deleteUser(username), HttpStatus.OK);
+    public ResponseEntity<AppUserDto> deleteAppUser(@PathVariable String username) {
+        return new ResponseEntity<>(appUserService.deleteUserDto(username), HttpStatus.OK);
     }
 
-    @PutMapping("/{username}")
-    public ResponseEntity<AppUser> updateAppUser(@RequestBody AppUser appUser, @PathVariable String username) {
-        return new ResponseEntity<>(appUserService.updateUser(appUser), HttpStatus.OK);
+   @PutMapping("/{username}")
+    public ResponseEntity<AppUserDto> updateAppUser(@RequestBody AppUserDto appUser, @PathVariable String username) {
+        return new ResponseEntity<>(appUserService.updateUserDto(appUser), HttpStatus.OK);
     }
 
     @GetMapping("/{username}/cards")
@@ -56,7 +58,8 @@ public class UserController {
     }
 
     @PostMapping("/{username}/cards")
-    public ResponseEntity<Card> newCard(@PathVariable String username, @RequestBody Card card) {
-        return new ResponseEntity<>(appUserService.newCard(username, card), HttpStatus.OK);
+    public ResponseEntity<CardDto> newCard(@PathVariable String username, @RequestBody CardDto cardDto) {
+        return new ResponseEntity<>(appUserService.newCard(username, cardDto), HttpStatus.OK);
     }
+
 }

@@ -1,8 +1,10 @@
 package az.code.unisubapp.services;
 
+import az.code.unisubapp.dto.AppUserDto;
 import az.code.unisubapp.dto.CardDto;
 import az.code.unisubapp.dto.SubscriptionDto;
 import az.code.unisubapp.exceptions.AlreadyExists;
+import az.code.unisubapp.exceptions.UsernameNotFound;
 import az.code.unisubapp.models.AppUser;
 import az.code.unisubapp.models.Card;
 import az.code.unisubapp.models.Subscription;
@@ -31,11 +33,23 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUser getUser(String username) {
+    public AppUserDto getUserDto(String username) {
         try {
             AppUser user = appUserRepository.getAppUserByUsername(username);
             user.setInactive(false);
             user.setRemoveDate(null);
+            appUserRepository.save(user);
+            return new AppUserDto(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UsernameNotFound();
+        }
+    }
+
+    @Override
+    public AppUser getUser(String username) {
+        try {
+            AppUser user = appUserRepository.getAppUserByUsername(username);
             appUserRepository.save(user);
             return user;
         } catch (Exception e) {
@@ -45,17 +59,18 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUser updateUser(AppUser user) {
-        AppUser u = appUserRepository.getAppUserByUsername(user.getUsername());
-        u.updateUser(user);
+    public AppUserDto updateUserDto(AppUserDto userDto) {
+        AppUser u = appUserRepository.getAppUserByUsername(userDto.getUsername());
+        u.updateUser(new AppUser(userDto));
         appUserRepository.save(u);
-        return u;
+        return new AppUserDto(u);
     }
 
     @Override
-    public AppUser newUser(AppUser user) {
+    public AppUserDto newUserDto(AppUserDto user) {
         try{
-            return appUserRepository.save(user);
+            AppUser newUser = appUserRepository.save(new AppUser(user));
+            return new AppUserDto(newUser);
         }
         catch (Exception e){
             throw new AlreadyExists();
@@ -63,12 +78,12 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUser deleteUser(String username) {
+    public AppUserDto deleteUserDto(String username) {
         AppUser user = getUser(username);
         user.setInactive(true);
         user.setRemoveDate(LocalDate.now());
         appUserRepository.save(user);
-        return user;
+        return new AppUserDto(user);
     }
 
     @Override
@@ -77,6 +92,7 @@ public class AppUserServiceImpl implements AppUserService {
         return new CardDto(card);
     }
 
+    @Override
     public Card getCard(Long id){
         return cardRepository.getById(id);
     }
@@ -92,8 +108,9 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public Card newCard(String username, Card card) {
+    public CardDto newCard(String username, CardDto cardDto) {
         AppUser user = appUserRepository.getAppUserByUsername(username);
+        Card card=new Card(cardDto);
         boolean success = user.addCard(card);
         if(success){
             appUserRepository.save(user);
@@ -101,25 +118,32 @@ public class AppUserServiceImpl implements AppUserService {
         else{
             throw new AlreadyExists();
         }
-        return card;
+        return cardDto;
     }
 
     @Override
-    public Card updateCard(Card card) {
-        Card c = cardRepository.getById(card.getId());
-        c.update(card);
-        return cardRepository.save(card);
+    public CardDto updateCardDto(CardDto cardDto) {
+        Card c = cardRepository.getById(cardDto.getId());
+        c.update(c);
+        cardRepository.save(c);
+        return new CardDto(c);
     }
 
     @Override
-    public Card deleteCard(Card card) {
+    public CardDto deleteCardDto(CardDto cardDto) {
+        Card card = cardRepository.getById(cardDto.getId());
         cardRepository.delete(card);
-        return card;
+        return cardDto;
     }
 
     @Override
     public Subscription getSubscription(Long id) {
         return subscriptionRepository.getById(id);
+    }
+
+    @Override
+    public SubscriptionDto getSubscriptionDto(Long id) {
+        return new SubscriptionDto(getSubscription(id));
     }
 
     @Override
@@ -133,19 +157,30 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public Subscription updateSubscription(Subscription subscription) {
-        Subscription sub = subscriptionRepository.getById(subscription.getId());
-        sub.update(subscription);
-        return subscriptionRepository.save(sub);
+    public SubscriptionDto updateSubscriptionDto(SubscriptionDto subscriptionDto) {
+        Subscription subUpdate = new Subscription(subscriptionDto);
+        Subscription sub = subscriptionRepository.getById(subscriptionDto.getId());
+        sub.update(subUpdate);
+        subscriptionRepository.save(sub);
+        return new SubscriptionDto(sub);
     }
 
     @Override
-    public Subscription newSubscription(Subscription subscription) {
-        return null;
+    public SubscriptionDto newSubscriptionDto(SubscriptionDto subscriptionDto,String username) {
+        AppUser appUser = appUserRepository.getAppUserByUsername(username);
+        Subscription newSub = new Subscription(subscriptionDto);
+        Card card = cardRepository.getById(subscriptionDto.getCardId());
+        newSub.setCard(card);
+        appUser.addSub(newSub);
+        appUserRepository.save(appUser);
+        return new SubscriptionDto(newSub);
     }
-
     @Override
-    public Subscription deleteSubscription(String username, Long id) {
-        return null;
+    public SubscriptionDto deleteSubscriptionDto(Long id) {
+        Subscription sub = subscriptionRepository.getById(id);
+        sub.setDeactivated(true);
+        sub.setDeactivatedDate(LocalDate.now());
+        subscriptionRepository.save(sub);
+        return new SubscriptionDto(sub);
     }
 }
