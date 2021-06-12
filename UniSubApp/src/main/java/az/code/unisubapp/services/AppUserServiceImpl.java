@@ -122,17 +122,16 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public CardDto updateCardDto(CardDto cardDto) {
         Card c = cardRepository.getById(cardDto.getId());
-        c.update(c);
+        c.update(new Card(cardDto));
         cardRepository.save(c);
         return new CardDto(c);
     }
 
     @Override
     public CardDto deleteCardDto(Long id) {
-
         Card card = cardRepository.getById(id);
         CardDto cardDto = new CardDto(card);
-        cardRepository.delete(card);
+        cardRepository.deleteById(id);
         return cardDto;
     }
 

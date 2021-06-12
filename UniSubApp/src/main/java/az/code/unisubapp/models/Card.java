@@ -24,7 +24,7 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    @NaturalId
+    @NaturalId(mutable = true)
     private String number;
     @Column(name = "bank_name")
     private String bankName;

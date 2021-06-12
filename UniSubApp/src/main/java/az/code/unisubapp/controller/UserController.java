@@ -61,6 +61,13 @@ public class UserController {
         return new ResponseEntity<>(appUserService.newCard(username, cardDto), HttpStatus.OK);
     }
 
+    @PutMapping("/{username}/cards/{id}")
+    public ResponseEntity<CardDto> updateCard(@PathVariable String username,
+                                              @PathVariable long id,
+                                              @RequestBody CardDto cardDto) {
+        return new ResponseEntity<>(appUserService.updateCardDto(cardDto), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{username}/cards/{id}")
     public ResponseEntity<CardDto> deleteCardById(@PathVariable String username, @PathVariable long id) {
         return new ResponseEntity<>(appUserService.deleteCardDto(id), HttpStatus.OK);
