@@ -1,5 +1,6 @@
 package az.code.unisubapp.models;
 
+import az.code.unisubapp.dto.CardDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,13 @@ public class Card {
     @JsonBackReference
     private AppUser appUser;
 
+    public Card(CardDto cardDto){
+        this.id = cardDto.getId();
+        this.number = cardDto.getNumber();
+        this.bankName = cardDto.getBankName();
+        this.expiryDate = cardDto.getExpiryDate();
+        this.type = cardDto.getType();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,6 +55,13 @@ public class Card {
     @Override
     public int hashCode() {
         return Objects.hash(number);
+    }
+
+    public void update(Card card){
+        this.setNumber(card.getNumber() != null ? card.getNumber() : this.getNumber());
+        this.setBankName(card.getBankName() != null ? card.getBankName() : this.getBankName());
+        this.setExpiryDate(card.getExpiryDate() != null ? card.getExpiryDate() : this.getExpiryDate());
+        this.setType(card.getType() != null ? card.getType() : this.getType());
     }
 
 }

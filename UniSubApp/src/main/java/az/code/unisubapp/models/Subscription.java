@@ -1,5 +1,6 @@
 package az.code.unisubapp.models;
 
+import az.code.unisubapp.dto.SubscriptionDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +26,9 @@ public class Subscription {
     private String plan;
     private BigDecimal price;
     @ManyToOne(targetEntity = Card.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "card_id", referencedColumnName = "id")
     private Card card;
+
     @Column(name = "sub_date")
     private LocalDate subDate;
     private URL website;
@@ -34,6 +37,14 @@ public class Subscription {
     @Column(name = "deactivated_date")
     private LocalDate deactivatedDate;
 
+    public Subscription(SubscriptionDto subDto){
+        this.id = subDto.getId();
+        this.item = subDto.getItem();
+        this.plan = subDto.getPlan();
+        this.price = subDto.getPrice();
+        this.subDate = subDto.getSubDate();
+        this.website = subDto.getWebsite();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,5 +56,13 @@ public class Subscription {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public void update(Subscription sub){
+        this.setItem(sub.getItem() != null ? sub.getItem(): this.getItem());
+        this.setPlan(sub.getPlan() != null ? sub.getPlan(): this.getPlan());
+        this.setPrice(sub.getPrice() != null ? sub.getPrice(): this.getPrice());
+        this.setCard(sub.getCard() != null ? sub.getCard(): this.getCard());
+        this.setPrice(sub.getPrice() != null ? sub.getPrice(): this.getPrice());
     }
 }
