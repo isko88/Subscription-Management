@@ -2,7 +2,9 @@ package az.code.unisubapp.dto;
 
 import az.code.unisubapp.models.Card;
 import az.code.unisubapp.models.Subscription;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,14 +15,15 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
 
-
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SubscriptionDto {
     private Long id;
     private String item;
     private String plan;
     private BigDecimal price;
-    private long card;
+    private Long cardId;
     private LocalDate subDate;
     private URL website;
 
@@ -29,7 +32,7 @@ public class SubscriptionDto {
         this.item = sub.getItem();
         this.plan = sub.getPlan();
         this.price = sub.getPrice();
-        this.card = sub.getCard().getId();
+        this.cardId = sub.getCard().getId();
         this.subDate = sub.getSubDate();
         this.website = sub.getWebsite();
     }

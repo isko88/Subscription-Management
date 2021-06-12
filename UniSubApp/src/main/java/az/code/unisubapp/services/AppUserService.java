@@ -1,5 +1,6 @@
 package az.code.unisubapp.services;
 
+import az.code.unisubapp.dto.AppUserDto;
 import az.code.unisubapp.dto.CardDto;
 import az.code.unisubapp.dto.SubscriptionDto;
 import az.code.unisubapp.models.AppUser;
@@ -10,13 +11,15 @@ import java.util.List;
 
 public interface AppUserService {
 
+    AppUserDto getUserDto(String username);
+
     AppUser getUser(String username);
 
-    AppUser updateUser(AppUser appUser);
+    AppUserDto updateUserDto(AppUserDto appUserDto);
 
-    AppUser newUser(AppUser appUser);
+    AppUserDto newUserDto(AppUserDto appUserDto);
 
-    AppUser deleteUser(String username);
+    AppUserDto deleteUserDto(String username);
 
     Card getCard(Long id);
 
@@ -24,20 +27,22 @@ public interface AppUserService {
 
     List<CardDto> getCards(String username);
 
-    Card newCard(String username, Card card);
+    CardDto newCard(String username, CardDto card);
 
-    Card updateCard(Card card);
+    CardDto updateCardDto(CardDto cardDto);
 
-    Card deleteCard(Card card);
+    CardDto deleteCardDto(CardDto cardDto);
 
     Subscription getSubscription(Long id);
 
+    SubscriptionDto getSubscriptionDto(Long id);
+
     List<SubscriptionDto> getSubscriptions(String username);
 
-    Subscription updateSubscription(Subscription subscription);
+    SubscriptionDto updateSubscriptionDto(SubscriptionDto subscriptionDto);
 
-    Subscription newSubscription(Subscription subscription);
+    SubscriptionDto newSubscriptionDto(SubscriptionDto subscriptionDto,String username);
 
-    Subscription deleteSubscription(String username, Long id);
+    SubscriptionDto deleteSubscriptionDto(Long id);
 
 }
