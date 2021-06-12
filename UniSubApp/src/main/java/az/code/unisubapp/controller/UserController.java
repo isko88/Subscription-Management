@@ -2,8 +2,8 @@ package az.code.unisubapp.controller;
 
 import az.code.unisubapp.dto.AppUserDto;
 import az.code.unisubapp.dto.CardDto;
+import az.code.unisubapp.dto.SubscriptionDto;
 import az.code.unisubapp.exceptions.UsernameNotFound;
-import az.code.unisubapp.models.AppUser;
 import az.code.unisubapp.services.AppUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,6 +71,31 @@ public class UserController {
     @DeleteMapping("/{username}/cards/{id}")
     public ResponseEntity<CardDto> deleteCardById(@PathVariable String username, @PathVariable long id) {
         return new ResponseEntity<>(appUserService.deleteCardDto(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/{username}/cards/{id}")
+    public ResponseEntity<CardDto> updateCard(@PathVariable String username, @RequestBody CardDto cardDto) {
+        return new ResponseEntity<>(appUserService.updateCardDto(cardDto), HttpStatus.OK);
+    }
+    
+    @GetMapping("/{username}/subs")
+    public ResponseEntity<List<SubscriptionDto>> getSubs(@PathVariable String username) {
+        return new ResponseEntity<>(appUserService.getSubscriptions(username), HttpStatus.OK);
+    }
+
+    @PostMapping("/{username}/subs")
+    public ResponseEntity<SubscriptionDto> newSubs(@PathVariable String username, @RequestBody SubscriptionDto subscriptionDto) {
+        return new ResponseEntity<>(appUserService.newSubscriptionDto(subscriptionDto, username), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{username}/subs/{id}")
+    public ResponseEntity<SubscriptionDto> deleteSubsById(@PathVariable String username, @PathVariable long id) {
+        return new ResponseEntity<>(appUserService.deleteSubscriptionDto(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/{username}/subs/{id}")
+    public ResponseEntity<SubscriptionDto> updateCard(@PathVariable String username, @RequestBody SubscriptionDto subscriptionDto) {
+        return new ResponseEntity<>(appUserService.updateSubscriptionDto(subscriptionDto), HttpStatus.OK);
     }
 
 
