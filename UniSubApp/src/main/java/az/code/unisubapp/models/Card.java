@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,14 +22,16 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    @NaturalId
     private String number;
     @Column(name = "bank_name")
     private String bankName;
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
     private String type;
-    @ManyToOne(targetEntity = AppUser.class)
-    @JoinColumn(name = "user_id")
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonBackReference
     private AppUser appUser;
 
@@ -37,13 +40,12 @@ public class Card {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
-        return id.equals(card.id) && number.equals(card.number);
+        return number.equals(card.number);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number);
+        return Objects.hash(number);
     }
-
 
 }
