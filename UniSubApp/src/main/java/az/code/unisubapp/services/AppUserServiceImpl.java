@@ -122,17 +122,16 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public CardDto updateCardDto(CardDto cardDto) {
         Card c = cardRepository.getById(cardDto.getId());
-        c.update(c);
+        c.update(new Card(cardDto));
         cardRepository.save(c);
         return new CardDto(c);
     }
 
     @Override
     public CardDto deleteCardDto(Long id) {
-
         Card card = cardRepository.getById(id);
         CardDto cardDto = new CardDto(card);
-        cardRepository.delete(card);
+        cardRepository.deleteById(id);
         return cardDto;
     }
 
@@ -162,7 +161,7 @@ public class AppUserServiceImpl implements AppUserService {
         Subscription sub = subscriptionRepository.getById(subscriptionDto.getId());
         sub.update(subUpdate);
         subscriptionRepository.save(sub);
-        return new SubscriptionDto(sub);
+        return new SubscriptionDto(subscriptionRepository.getById(sub.getId()));
     }
 
     @Override
@@ -173,7 +172,7 @@ public class AppUserServiceImpl implements AppUserService {
         newSub.setCard(card);
         appUser.addSub(newSub);
         appUserRepository.save(appUser);
-        return new SubscriptionDto(newSub);
+        return new SubscriptionDto(subscriptionRepository.getById(newSub.getId()));
     }
 
     @Override

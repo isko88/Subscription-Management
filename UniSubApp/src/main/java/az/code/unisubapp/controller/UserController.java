@@ -30,7 +30,7 @@ public class UserController {
         return new ResponseEntity<>(appUser, HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping("/register")
     public ResponseEntity<AppUserDto> saveAppUser(@RequestBody AppUserDto appUserDto) {
         System.out.println(appUserDto);
         return new ResponseEntity<>(appUserService.newUserDto(appUserDto), HttpStatus.OK);
@@ -61,20 +61,29 @@ public class UserController {
         return new ResponseEntity<>(appUserService.newCard(username, cardDto), HttpStatus.OK);
     }
 
+    @PutMapping("/{username}/cards/{id}")
+    public ResponseEntity<CardDto> updateCard(@PathVariable String username,
+                                              @PathVariable long id,
+                                              @RequestBody CardDto cardDto) {
+        return new ResponseEntity<>(appUserService.updateCardDto(cardDto), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{username}/cards/{id}")
     public ResponseEntity<CardDto> deleteCardById(@PathVariable String username, @PathVariable long id) {
         return new ResponseEntity<>(appUserService.deleteCardDto(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{username}/cards/{id}")
-    public ResponseEntity<CardDto> updateCard(@PathVariable String username, @RequestBody CardDto cardDto) {
-        return new ResponseEntity<>(appUserService.updateCardDto(cardDto), HttpStatus.OK);
-    }
     
     @GetMapping("/{username}/subs")
     public ResponseEntity<List<SubscriptionDto>> getSubs(@PathVariable String username) {
         return new ResponseEntity<>(appUserService.getSubscriptions(username), HttpStatus.OK);
     }
+
+    @GetMapping("/{username}/subs/{id}")
+    public ResponseEntity<SubscriptionDto> getSubs(@PathVariable String username,Long id) {
+        return new ResponseEntity<>(appUserService.getSubscriptionDto(id), HttpStatus.OK);
+    }
+
 
     @PostMapping("/{username}/subs")
     public ResponseEntity<SubscriptionDto> newSubs(@PathVariable String username, @RequestBody SubscriptionDto subscriptionDto) {
