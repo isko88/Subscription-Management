@@ -31,7 +31,7 @@ public class AppUserDto {
         this.firstname = user.getFirstname();
         this.lastname = user.getLastname();
         this.email = user.getEmail();
-        this.phoneNumber = user.getFirstname();
+        this.phoneNumber = user.getPhoneNumber();
 
         user.getCards().stream().map(CardDto::new).forEach(this.cards::add);
         user.getSubs().stream().map(SubscriptionDto::new).forEach(s -> this.subs.add(s));
