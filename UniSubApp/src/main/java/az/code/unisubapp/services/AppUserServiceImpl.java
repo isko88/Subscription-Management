@@ -110,7 +110,7 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public CardDto newCard(String username, CardDto cardDto) {
         AppUser user = appUserRepository.getAppUserByUsername(username);
-        Card card=new Card(cardDto);
+        Card card = new Card(cardDto);
         boolean success = user.addCard(card);
         if(success){
             appUserRepository.save(user);
@@ -118,7 +118,7 @@ public class AppUserServiceImpl implements AppUserService {
         else{
             throw new AlreadyExists();
         }
-        return cardDto;
+        return new CardDto(cardRepository.getCardByNumber(card.getNumber()));
     }
 
     @Override

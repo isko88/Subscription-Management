@@ -58,7 +58,7 @@ public class Card {
     }
 
     public void update(Card card){
-        this.setNumber(card.getNumber() != null ? card.getNumber() : this.getNumber());
+        this.setNumber(card.getNumber() != null && card.getNumber().matches("[\\d]+")? card.getNumber() : this.getNumber());
         this.setBankName(card.getBankName() != null ? card.getBankName() : this.getBankName());
         this.setExpiryDate(card.getExpiryDate() != null ? card.getExpiryDate() : this.getExpiryDate());
         this.setType(card.getType() != null ? card.getType() : this.getType());
