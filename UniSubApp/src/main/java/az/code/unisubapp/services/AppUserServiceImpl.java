@@ -168,6 +168,22 @@ public class AppUserServiceImpl implements AppUserService {
     public SubscriptionDto newSubscriptionDto(SubscriptionDto subscriptionDto, String username) {
         AppUser appUser = appUserRepository.getAppUserByUsername(username);
         Subscription newSub = new Subscription(subscriptionDto);
+        String plan = newSub.getPlan();
+        LocalDate ld = newSub.getSubDate();
+        switch (plan){
+            case("annually"):{
+                newSub.setRenewDate(ld.plusYears(1));
+                break;
+            }
+            case("monthly"):{
+                newSub.setRenewDate(ld.plusMonths(1));
+                break;
+            }
+            case("weekly"):{
+                newSub.setRenewDate(ld.plusDays(7));
+                break;
+            }
+        }
         Card card = cardRepository.getById(subscriptionDto.getCardId());
         newSub.setCard(card);
         appUser.addSub(newSub);

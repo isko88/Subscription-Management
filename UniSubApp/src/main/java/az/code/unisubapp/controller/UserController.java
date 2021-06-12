@@ -23,6 +23,7 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<AppUserDto> getAppUserByUsername(@PathVariable String username) {
+        System.out.println(username);
         AppUserDto appUser = appUserService.getUserDto(username);
         if (appUser == null) {
             throw new UsernameNotFound();
