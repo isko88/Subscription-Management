@@ -2,6 +2,7 @@ package az.code.unisubapp.models;
 
 
 import az.code.unisubapp.dto.AppUserDto;
+import az.code.unisubapp.dto.UserRegisterDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +30,7 @@ public class AppUser {
     private String username;
     private String firstname;
     private String lastname;
+    private String password;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -57,6 +59,16 @@ public class AppUser {
         this.lastname = userDto.getLastname();
         this.email = userDto.getEmail();
         this.phoneNumber = userDto.getPhoneNumber();
+    }
+
+    public AppUser(UserRegisterDto userDto){
+        this.id = userDto.getId();
+        this.username = userDto.getUsername();
+        this.firstname = userDto.getFirstname();
+        this.lastname = userDto.getLastname();
+        this.email = userDto.getEmail();
+        this.phoneNumber = userDto.getPhoneNumber();
+        this.password = userDto.getPassword();
     }
 
     @Override
