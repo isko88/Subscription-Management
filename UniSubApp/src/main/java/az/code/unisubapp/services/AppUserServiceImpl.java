@@ -206,4 +206,5 @@ public class AppUserServiceImpl implements AppUserService {
         subscriptionRepository.save(sub);
         return new SubscriptionDto(sub);
     }
+
 }

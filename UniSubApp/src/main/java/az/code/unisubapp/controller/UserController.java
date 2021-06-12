@@ -67,14 +67,14 @@ public class UserController {
         return new ResponseEntity<>(appUserService.deleteCardDto(id), HttpStatus.OK);
     }
 
-    
+
     @GetMapping("/{username}/subs")
     public ResponseEntity<List<SubscriptionDto>> getSubs(@PathVariable String username) {
         return new ResponseEntity<>(appUserService.getSubscriptions(username), HttpStatus.OK);
     }
 
     @GetMapping("/{username}/subs/{id}")
-    public ResponseEntity<SubscriptionDto> getSubs(@PathVariable String username,Long id) {
+    public ResponseEntity<SubscriptionDto> getSubs(@PathVariable String username, Long id) {
         return new ResponseEntity<>(appUserService.getSubscriptionDto(id), HttpStatus.OK);
     }
 
@@ -97,6 +97,5 @@ public class UserController {
                                                       @RequestBody SubscriptionDto subscriptionDto) {
         return new ResponseEntity<>(appUserService.updateSubscriptionDto(id, subscriptionDto), HttpStatus.OK);
     }
-
 
 }

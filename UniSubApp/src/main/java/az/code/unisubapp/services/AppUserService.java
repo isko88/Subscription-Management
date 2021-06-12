@@ -41,7 +41,7 @@ public interface AppUserService {
 
     SubscriptionDto updateSubscriptionDto(long id, SubscriptionDto subscriptionDto);
 
-    SubscriptionDto newSubscriptionDto(SubscriptionDto subscriptionDto,String username);
+    SubscriptionDto newSubscriptionDto(SubscriptionDto subscriptionDto, String username);
 
     SubscriptionDto deleteSubscriptionDto(Long id);
 
