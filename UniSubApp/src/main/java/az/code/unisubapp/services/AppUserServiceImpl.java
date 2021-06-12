@@ -68,11 +68,10 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public AppUserDto newUserDto(AppUserDto user) {
-        try{
+        try {
             AppUser newUser = appUserRepository.save(new AppUser(user));
             return new AppUserDto(newUser);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new AlreadyExists();
         }
     }
@@ -93,7 +92,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public Card getCard(Long id){
+    public Card getCard(Long id) {
         return cardRepository.getById(id);
     }
 
@@ -112,10 +111,9 @@ public class AppUserServiceImpl implements AppUserService {
         AppUser user = appUserRepository.getAppUserByUsername(username);
         Card card = new Card(cardDto);
         boolean success = user.addCard(card);
-        if(success){
+        if (success) {
             appUserRepository.save(user);
-        }
-        else{
+        } else {
             throw new AlreadyExists();
         }
         return new CardDto(cardRepository.getCardByNumber(card.getNumber()));
@@ -130,8 +128,10 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public CardDto deleteCardDto(CardDto cardDto) {
-        Card card = cardRepository.getById(cardDto.getId());
+    public CardDto deleteCardDto(Long id) {
+
+        Card card = cardRepository.getById(id);
+        CardDto cardDto = new CardDto(card);
         cardRepository.delete(card);
         return cardDto;
     }
@@ -166,7 +166,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public SubscriptionDto newSubscriptionDto(SubscriptionDto subscriptionDto,String username) {
+    public SubscriptionDto newSubscriptionDto(SubscriptionDto subscriptionDto, String username) {
         AppUser appUser = appUserRepository.getAppUserByUsername(username);
         Subscription newSub = new Subscription(subscriptionDto);
         Card card = cardRepository.getById(subscriptionDto.getCardId());
@@ -175,6 +175,7 @@ public class AppUserServiceImpl implements AppUserService {
         appUserRepository.save(appUser);
         return new SubscriptionDto(newSub);
     }
+
     @Override
     public SubscriptionDto deleteSubscriptionDto(Long id) {
         Subscription sub = subscriptionRepository.getById(id);

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="519e24bd-3ae6-4cbf-ad32-6bb8fb3f1dd4" name="Default Changelist" comment="" />
+    <list default="true" id="519e24bd-3ae6-4cbf-ad32-6bb8fb3f1dd4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/UniSubApp/src/main/java/az/code/unisubapp/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/UniSubApp/src/main/java/az/code/unisubapp/controller/UserController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +33,7 @@
       <option name="presentableId" value="Default" />
       <updated>1623422224532</updated>
       <workItem from="1623422231143" duration="120000" />
+      <workItem from="1623503226848" duration="5000" />
     </task>
     <servers />
   </component>

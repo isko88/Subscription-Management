@@ -31,7 +31,7 @@ public interface AppUserService {
 
     CardDto updateCardDto(CardDto cardDto);
 
-    CardDto deleteCardDto(CardDto cardDto);
+    CardDto deleteCardDto(Long id);
 
     Subscription getSubscription(Long id);
 
