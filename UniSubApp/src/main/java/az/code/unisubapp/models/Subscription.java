@@ -31,6 +31,8 @@ public class Subscription {
 
     @Column(name = "sub_date")
     private LocalDate subDate;
+    @Column(name = "renew_date")
+    private LocalDate renewDate;
     private URL website;
     @Column(name = "is_deactivated")
     private boolean isDeactivated;

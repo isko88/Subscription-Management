@@ -25,6 +25,7 @@ public class SubscriptionDto {
     private BigDecimal price;
     private Long cardId;
     private LocalDate subDate;
+    private LocalDate renewDate;
     private URL website;
     private boolean isDeactivated;
 
@@ -35,6 +36,7 @@ public class SubscriptionDto {
         this.price = sub.getPrice();
         this.cardId = sub.getCard().getId();
         this.subDate = sub.getSubDate();
+        this.renewDate = sub.getRenewDate();
         this.website = sub.getWebsite();
         this.isDeactivated = sub.isDeactivated();
     }
