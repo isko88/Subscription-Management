@@ -14,4 +14,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
     AppUser getAppUserByUsernameAndPasswordEquals(String username, String password);
 
+    @Query("select u from AppUser u")
+    List<AppUser> getAllUsers();
+
 }
