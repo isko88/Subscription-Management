@@ -45,4 +45,7 @@ public interface AppUserService {
 
     SubscriptionDto deleteSubscriptionDto(Long id);
 
+    List<SubscriptionDto> getSubscriptionDtoSocials(String username);
+
+    List<AppUser> getAllUsers();
 }

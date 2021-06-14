@@ -1,7 +1,7 @@
 package az.code.unisubapp.controller;
 
 import az.code.unisubapp.dto.*;
-import az.code.unisubapp.exceptions.UsernameNotFound;
+import az.code.unisubapp.models.AppUser;
 import az.code.unisubapp.services.AppUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +19,11 @@ public class UserController {
         this.appUserService = appUserService;
     }
 
+    @GetMapping("/users")
+    public ResponseEntity<List<AppUser>> allUsers() {
+        return new ResponseEntity<>(appUserService.getAllUsers(), HttpStatus.OK);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<AppUserDto> loginUser(@RequestBody LoginDto loginInfo) {
         AppUserDto user = appUserService.login(loginInfo);
@@ -28,6 +33,11 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<AppUserDto> registerNewUser(@RequestBody UserRegisterDto newUser) {
         return new ResponseEntity<>(appUserService.newUserDto(newUser), HttpStatus.OK);
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<AppUser> getUSer(@PathVariable String username) {
+        return new ResponseEntity<>(appUserService.getUser(username), HttpStatus.OK);
     }
 
     @DeleteMapping("/{username}")
@@ -76,6 +86,11 @@ public class UserController {
     @GetMapping("/{username}/subs/{id}")
     public ResponseEntity<SubscriptionDto> getSubs(@PathVariable String username, Long id) {
         return new ResponseEntity<>(appUserService.getSubscriptionDto(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{username}/subs/socials")
+    public ResponseEntity<List<SubscriptionDto>> getSubsSocials(@PathVariable String username) {
+        return new ResponseEntity<>(appUserService.getSubscriptionDtoSocials(username), HttpStatus.OK);
     }
 
 

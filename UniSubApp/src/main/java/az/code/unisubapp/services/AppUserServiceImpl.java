@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -68,6 +69,7 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public AppUserDto updateUserDto(AppUserDto userDto) {
         AppUser u = appUserRepository.getAppUserByUsername(userDto.getUsername());
+        System.out.println(userDto);
         u.updateUser(new AppUser(userDto));
         appUserRepository.save(u);
         return new AppUserDto(u);
@@ -193,6 +195,7 @@ public class AppUserServiceImpl implements AppUserService {
         }
         Card card = cardRepository.getById(subscriptionDto.getCardId());
         newSub.setCard(card);
+        newSub = subscriptionRepository.save(newSub);
         appUser.addSub(newSub);
         appUserRepository.save(appUser);
         return new SubscriptionDto(subscriptionRepository.getById(newSub.getId()));
@@ -205,6 +208,26 @@ public class AppUserServiceImpl implements AppUserService {
         sub.setDeactivatedDate(LocalDate.now());
         subscriptionRepository.save(sub);
         return new SubscriptionDto(sub);
+    }
+
+    @Override
+    public List<SubscriptionDto> getSubscriptionDtoSocials(String username) {
+        AppUser user = appUserRepository.getAppUserByUsername(username);
+        List<SubscriptionDto> socialSubs = user.getSubs().stream().filter(s -> {
+            String item = s.getItem().toLowerCase();
+            if(item.equals("facebook") || item.equals("google") || item.equals("instagram") || item.equals("twitter")){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }).map(SubscriptionDto::new).collect(Collectors.toList());
+        return socialSubs;
+    }
+
+    @Override
+    public List<AppUser> getAllUsers(){
+        return appUserRepository.getAllUsers();
     }
 
 }

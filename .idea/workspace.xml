@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="519e24bd-3ae6-4cbf-ad32-6bb8fb3f1dd4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/UniSubApp/src/main/java/az/code/unisubapp/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/UniSubApp/src/main/java/az/code/unisubapp/controller/UserController.java" afterDir="false" />
-    </list>
+    <list default="true" id="519e24bd-3ae6-4cbf-ad32-6bb8fb3f1dd4" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1to4gPUj0i53NkYp0OxiZEmUjtj" />
   <component name="ProjectViewState">
@@ -24,6 +28,19 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -34,6 +51,7 @@
       <updated>1623422224532</updated>
       <workItem from="1623422231143" duration="120000" />
       <workItem from="1623503226848" duration="5000" />
+      <workItem from="1623573287486" duration="69000" />
     </task>
     <servers />
   </component>
